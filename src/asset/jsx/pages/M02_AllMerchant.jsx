@@ -59,13 +59,11 @@ class ListSettlement extends Component {
         let data = await response.json();
         const { apiData } = this.state;
   
-        // Filter for merchants with "Pending" status
         const pendingMerchants = data.filter(item => item.status === "Pending");
         const pendingCount = pendingMerchants.length;
   
         let notifications = [];
-  
-        // If there are any pending merchants, add a notification
+
         if (pendingCount > 0) {
           notifications.push({
             message: `There are ${pendingCount} merchants with status Pending`,
@@ -73,22 +71,7 @@ class ListSettlement extends Component {
           });
           sessionStorage.setItem("pendingMerchants", JSON.stringify(pendingMerchants));
         }
-  
-        // Check if client count has increased
-        const previousClientCount = apiData.length;
-        const currentClientCount = data.length;
-  
-        if (currentClientCount > previousClientCount) {
-          notifications.push({
-            message: `Client count has increased to ${currentClientCount}`,
-            type: "info",
-          });
-        }
-  
-        // Store notifications in session storage
-        sessionStorage.setItem("notifications", JSON.stringify(notifications));
-  
-        // Update the state with the fetched data
+ 
         this.setState({
           apiData: data,
           loading: false,

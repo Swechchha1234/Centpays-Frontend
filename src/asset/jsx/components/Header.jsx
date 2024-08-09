@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import PropTypes from "prop-types";
+
 //images
 import {
   Search,
@@ -642,18 +642,5 @@ class Header extends Component {
     );
   }
 }
-
-Header.propTypes = {
-  notifications: PropTypes.arrayOf(
-    PropTypes.shape({
-      message: PropTypes.string.isRequired,
-      type: PropTypes.string,
-    })
-  ),
-};
-
-Header.defaultProps = {
-  notifications: [],
-};
 
 export default Header;

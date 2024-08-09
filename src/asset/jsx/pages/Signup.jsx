@@ -46,10 +46,15 @@ class Signup extends Component {
   handleSignupSuccessModalToggle = (action) => {
     if (action === "open") {
       this.setState({ isSignupSuccessful: true });
-    } else {
-      this.setState({ isSignupSuccessful: false });
+    } else if (action === "close") {
+      this.setState({ isSignupSuccessful: false }, () => {
+        if (this.state.redirectToLogin) {
+          this.props.history.push('/');
+        }
+      });
     }
   };
+  
 
   handleSubmit = async (e) => {
     e.preventDefault();
@@ -188,9 +193,6 @@ class Signup extends Component {
             messageType={messageType}
             onClose={() => this.setState({ errorMessage: "" })}
           />
-        )}
-        {isSignupSuccessful && (
-          <Modal onClose={() => this.setState({ isSignupSuccessful: false })} />
         )}
         {isSignupSuccessful && (
           <Modal
