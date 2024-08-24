@@ -105,9 +105,8 @@ class Dashboard extends Component {
     if (userRole==='firstUser' && userStatus==='Pending') {
       this.setState({ showModal: true });
     }
-
-    console.log("User Role:", userRole);
-    console.log("User Status:", userStatus);
+    // console.log("User Role:", userRole);
+    // console.log("User Status:", userStatus);
 
     if (userStatus === "Active") {
     }
@@ -527,7 +526,7 @@ class Dashboard extends Component {
       return validCurrencyCodes.includes(currency) ? currency : "USD";
     };
 
-    if (userRole !== "Pending") {
+    if (userStatus !== "Pending") {
       return (
         <>
           {errorMessage && (

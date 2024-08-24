@@ -64,9 +64,7 @@ class ListSettlement extends Component {
           apiData: data,
           loading: false,
         });
-        console.log("api data", this.state.apiData)
       } else {
-        console.error("Error fetching data:", response.statusText);
         this.setState({
           errorMessage: "Error in fetching data. Please try again later.",
           messageType: "fail",
@@ -74,7 +72,6 @@ class ListSettlement extends Component {
         });
       }
     } catch (error) {
-      console.error("An unexpected error occurred:", error);
       this.setState({
         errorMessage: "An unexpected error occurred. Please try again later.",
         messageType: "",
@@ -106,9 +103,7 @@ class ListSettlement extends Component {
             tempData: data,
             loading: false,
           });
-          console.log("tempData:", this.state.tempData);
         } else {
-          console.error("Unexpected data format:", data);
           this.setState({
             errorMessage: "Unexpected data format received. Please try again later.",
             messageType: "fail",
@@ -116,7 +111,6 @@ class ListSettlement extends Component {
           });
         }
       } else {
-        console.error("Error fetching temp data:", response.statusText);
         this.setState({
           errorMessage: "Error in fetching temp data. Please try again later.",
           messageType: "fail",

@@ -223,7 +223,6 @@ class Header extends Component {
 
   handleCurrencyChange = (currency) => {
     this.setState({ selectedCurrency: currency });
-    console.log(currency, "Hello");
     this.props.onCurrencyChange?.(currency);
   };
 
@@ -430,7 +429,7 @@ class Header extends Component {
     } = this.state;
 
     const hasNotifications = notifications.length > 0;
-    console.log("noti", notifications);
+    // console.log("noti", notifications);
 
     const isProfileVisible = userRole === 'merchant' && userStatus === 'Pending';
     const blurClass = isProfileVisible ? 'blur-effect' : '';
