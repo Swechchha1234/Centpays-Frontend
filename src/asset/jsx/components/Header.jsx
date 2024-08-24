@@ -134,8 +134,6 @@ class Header extends Component {
     const userRole = this.getCookie("role");
     // Initialize SSE connection
     this.eventSource = new EventSource(`https://paylinkup.online/events?role=${userRole}`);
-
-    // Listen for messages from the server
     this.eventSource.onmessage = (event) => {
       console.log(event)
       const data = JSON.parse(event.data);
