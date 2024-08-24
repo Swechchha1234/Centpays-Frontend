@@ -39,7 +39,6 @@ import {
 //Images and Icons
 import profile from "../../media/icon/user-profile.png";
 import settlemntimg from "../../media/image/siteWorking.jpg";
-// import calender from "../../media/icon/calender.png";
 
 class ViewMerchant extends Component {
   constructor(props) {
