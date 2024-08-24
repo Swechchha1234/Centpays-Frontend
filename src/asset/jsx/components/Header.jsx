@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import React, { Component } from "react";
 
 //images
 import {
@@ -9,7 +10,6 @@ import {
   ShortCut,
   Close,
   Logout,
-  Infoicon,
 } from "../../media/icon/SVGicons";
 
 import user from "../../media/icon/user-profile.png";
@@ -48,7 +48,6 @@ class Header extends Component {
       email: this.getCookie("email"),
       userRole: this.getCookie("role"),
       companyName: this.getCookie("company_name"),
-      userStatus: this.getCookie("status"),
       token: this.getCookie("token"),
       theme: "light",
       scrolled: false,
@@ -203,7 +202,6 @@ class Header extends Component {
       this.setState({
         searchOpen: false,
         showUserProfileModal: false,
-        showNotificationModal: false,
       });
     }
   };
@@ -223,7 +221,6 @@ class Header extends Component {
 
   handleCurrencyChange = (currency) => {
     this.setState({ selectedCurrency: currency });
-    console.log(currency, "Hello");
     this.props.onCurrencyChange?.(currency);
   };
 
@@ -233,7 +230,6 @@ class Header extends Component {
         scrolled: true,
         showUserProfileModal: false,
         shortcutModal: false,
-        showNotificationModal: false,
       });
     } else {
       this.setState({
@@ -430,11 +426,7 @@ class Header extends Component {
     } = this.state;
 
     const hasNotifications = notifications.length > 0;
-    console.log("noti", notifications);
-
-    const isProfileVisible = userRole === 'merchant' && userStatus === 'Pending';
-    const blurClass = isProfileVisible ? 'blur-effect' : '';
-
+console.log("noti",notifications)
     return (
       <>
         {shortcutModal && (
@@ -466,6 +458,9 @@ class Header extends Component {
                 </CustomTooltip>
               </div>
             </div>
+            </div>
+            </div>
+
             </div>
 
             <div className="header-right">
@@ -664,6 +659,7 @@ class Header extends Component {
                           </div>
                         ))}
                     </div>
+
                   </div>
                 ))}
               </div>

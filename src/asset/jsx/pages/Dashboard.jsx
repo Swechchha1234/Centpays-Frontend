@@ -100,25 +100,17 @@ class Dashboard extends Component {
     return null;
   };
 
-  componentDidMount = async () => {
-    const { userRole, userStatus } = this.state;
-    if (userRole==='firstUser' && userStatus==='Pending') {
-      this.setState({ showModal: true });
-    }
-
-    console.log("User Role:", userRole);
-    console.log("User Status:", userStatus);
-
-    if (userStatus === "Active") {
-    }
-    this.dataInterval = setInterval(() => {
-      this.fetchData();
-      this.fetchDatacard10();
-    }, 900000);
-    this.fetchTableData();
-    this.interval = setInterval(this.fetchTableData, 20000);
-    document.addEventListener("mousedown", this.handleClickOutside);
-  };
+	componentDidMount = async () => {
+		const { userStatus } =this.state;
+		if (userStatus == "Active") {}
+		this.dataInterval = setInterval(() => {
+			this.fetchData();
+			this.fetchDatacard10();
+		}, 900000);
+		this.fetchTableData();
+		this.interval = setInterval(this.fetchTableData, 20000);
+		document.addEventListener('mousedown', this.handleClickOutside);
+	}
 
   componentWillUnmount() {
     clearInterval(this.interval);
@@ -521,82 +513,80 @@ class Dashboard extends Component {
       0
     );
 
-    const percentageChange = parseFloat(card2_data.percentageChange);
-    const validCurrencyCodes = ["USD", "EUR", "GBP", "INR"];
-    const validateCurrency = (currency) => {
-      return validCurrencyCodes.includes(currency) ? currency : "USD";
-    };
+		const percentageChange = parseFloat(card2_data.percentageChange);
+		const validCurrencyCodes = ["USD", "EUR", "GBP", "INR"];
+		const validateCurrency = (currency) => {
+			return validCurrencyCodes.includes(currency) ? currency : "USD";
+		};
 
-    if (userRole !== "Pending") {
-      return (
-        <>
-          {errorMessage && (
-            <MessageBox
-              message={pendingMessage}
-              messageType="success"
-              onClose={() => this.setState({ errorMessage: "" })}
-            />
-          )}
-           {showModal &&(
-           <Modal
-           onClose={() => this.handleLogout("close")}
-           onDecline={() => this.handleLogout("decline")}
-           onAccept={() => this.handleLogout()}
-           showDeclinebtn={false}
-           acceptbtnname={"Logout"}
-           showFotter={true}
-           stopScroll={true}
-           modalHeading={"📝"}
-           showBackground={true}
-           modalBody={
-             <div className="edit-status">
-              <p className="p2">After your profile is approved by the owner, you will be able to logged in.</p>
-             </div>
-           }
-         />
-        )}
-          <div className={shouldBlurHeaderAndSidebar ? 'blur-effect' : ''}>
-            <Header
-              onCurrencyChange={this.handleCurrencyChange}
-              onMerchantChange={this.handleMerchantChange}
-            />
-          </div>
-          <div className={shouldBlurHeaderAndSidebar ? 'blur-effect' : ''}>
-            <Sidebar />
-          </div>
-          <div
-            className={`main-screen ${this.state.sidebaropen
-                ? "collapsed-main-screen"
-                : "expanded-main-screen"
-              }  `}
-            style={shouldBlur ? { filter: 'blur(10px)' } : {}}
-          >
-            <div className="main-screen-rows first-row">
-              <div className="row-cards first-row-card1">
-                <div className="first-row-card1-head">
-                  <h4>
-                    Congratulations{" "}
-                    <span style={{ fontWeight: "600" }}>{merchantName}</span>!🎉
-                  </h4>
-                  <p className="p2">
-                    You have done {card1_data.successPercentage}% sales today 😎
-                  </p>
-                </div>
-                <img
-                  className="first-row-card1-image"
-                  src={boyimg}
-                  alt="Boy icon"
-                />
-              </div>
-              <div className="row-cards first-row-card2">
-                <div className="card-head-with-view-more">
-                  <div className="card2-div card2-icon1">
-                    <DollarCircle className="creditcard-img green-icon" />
-                  </div>
-                  <CustomTooltip details="This card displays the total amount of successful transactions that have occurred today.">
-                    <Infoicon className="icon2" />
-                  </CustomTooltip>
-                </div>
+		if (userStatus == "Pending"){
+			return (
+				<>
+{/* <div className="overlay"></div> */}
+				
+					<div
+						className={`main-screen ${this.state.sidebaropen
+							? "collapsed-main-screen"
+							: "expanded-main-screen"
+							}  `}
+					>
+						
+							<h2 style={{ width: '80%',textAlign:'center' }}>Your Account is currently in pending state. We appreciate you patience while we review it.</h2>
+						
+					</div>
+				</>
+			);
+			
+		}
+		else{if (userRole === "admin") {
+			return (
+				<>
+					{errorMessage && (
+						<MessageBox
+							message={errorMessage}
+							messageType={messageType}
+							onClose={() => this.setState({ errorMessage: "" })}
+						/>
+					)}
+
+					<Header
+						onCurrencyChange={this.handleCurrencyChange}
+						onMerchantChange={this.handleMerchantChange}
+					/>
+					<Sidebar />
+					<div
+						className={`main-screen ${this.state.sidebaropen
+							? "collapsed-main-screen"
+							: "expanded-main-screen"
+							}  `}
+					>
+						<div className="main-screen-rows first-row" >
+							<div className="row-cards first-row-card1">
+								<div className="first-row-card1-head">
+									<h4>
+										Congratulations <span style={{ fontWeight: '600' }}>{merchantName}</span>!🎉
+									</h4>
+									<p className="p2">
+										You have done {card1_data.successPercentage}% sales today 😎
+									</p>
+								</div>
+								<img
+									className="first-row-card1-image"
+									src={boyimg}
+									alt="Boy icon"
+								/>
+							</div>
+							<div className="row-cards first-row-card2">
+								<div className="card-head-with-view-more">
+									<div className="card2-div card2-icon1">
+										<DollarCircle
+											className="creditcard-img green-icon"
+										/>
+									</div>
+									<CustomTooltip details="This card displays the total amount of successful transactions that have occurred today.">
+										<Infoicon className="icon2" />
+									</CustomTooltip>
+								</div>
 
                 <div className="first-row-card2-details">
                   <p>Sales</p>

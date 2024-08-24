@@ -18,6 +18,7 @@ class ListSettlement extends Component {
         { id: 3, heading: "Email", label: "email" },
         { id: 4, heading: "Country", label: "country" },
         { id: 5, heading: "Skype ID", label: "poc_id" },
+        { id: 5, heading: "Skype ID", label: "poc_id" },
         { id: 6, heading: "URL", label: "website_url" },
       ],
       apiData: [],
@@ -48,7 +49,7 @@ class ListSettlement extends Component {
     const backendURL = process.env.REACT_APP_BACKEND_URL;
     const { token } = this.state;
     this.setState({ loading: true });
-
+  
     try {
       const response = await fetch(`${backendURL}/clients`, {
         method: "GET",
@@ -66,7 +67,6 @@ class ListSettlement extends Component {
         });
         console.log("api data", this.state.apiData)
       } else {
-        console.error("Error fetching data:", response.statusText);
         this.setState({
           errorMessage: "Error in fetching data. Please try again later.",
           messageType: "fail",
@@ -74,7 +74,6 @@ class ListSettlement extends Component {
         });
       }
     } catch (error) {
-      console.error("An unexpected error occurred:", error);
       this.setState({
         errorMessage: "An unexpected error occurred. Please try again later.",
         messageType: "",
@@ -82,73 +81,11 @@ class ListSettlement extends Component {
       });
     }
   };
-
-  fetchTempData = async () => {
-    const backendURL = process.env.REACT_APP_BACKEND_URL;
-    const { token } = this.state;
-    this.setState({ loading: true });
-
-    try {
-      const response = await fetch(`${backendURL}/tempusers`, {
-        method: "GET",
-        headers: {
-          Authorization: `Bearer ${token}`,
-          "Content-Type": "application/json",
-        },
-      });
-
-      if (response.ok) {
-        const data = await response.json();
-
-        // Ensure that the data received is in the correct format
-        if (Array.isArray(data)) {
-          this.setState({
-            tempData: data,
-            loading: false,
-          });
-          console.log("tempData:", this.state.tempData);
-        } else {
-          console.error("Unexpected data format:", data);
-          this.setState({
-            errorMessage: "Unexpected data format received. Please try again later.",
-            messageType: "fail",
-            loading: false,
-          });
-        }
-      } else {
-        console.error("Error fetching temp data:", response.statusText);
-        this.setState({
-          errorMessage: "Error in fetching temp data. Please try again later.",
-          messageType: "fail",
-          loading: false,
-        });
-      }
-    } catch (error) {
-      console.error("An unexpected error occurred:", error);
-      this.setState({
-        errorMessage: "An unexpected error occurred. Please try again later.",
-        messageType: "fail",
-        loading: false,
-      });
-    }
+  
+  
+  handleTabClick = (status) => {
+    this.setState({ showMerchants: status });
   };
-
-  handleTabClick = (status, type = "clients") => {
-    if (type === "temp") {
-      this.setState({
-        selectedDataSource: "tempData",
-        showTempMerchants: status,
-        showMerchants: "all",
-      });
-    } else {
-      this.setState({
-        selectedDataSource: "apiData",
-        showMerchants: status,
-        showTempMerchants: "all", // Reset other filters
-      });
-    }
-  };
-
 
   handleQueryParams = () => {
     const query = new URLSearchParams(window.location.search);
@@ -167,43 +104,14 @@ class ListSettlement extends Component {
         ? apiData
         : apiData.filter((item) => item.status === showMerchants);
 
-    const filteredTempData =
-      showTempMerchants === "all"
-        ? tempData
-        : tempData.filter((item) => item.status === showTempMerchants);
-
-    const tableData =
-      selectedDataSource === "apiData" ? filteredApiData : filteredTempData;
-
-    const totalMerchants = apiData.filter((item) => item.type === "Merchant").length;
-    const totalPsps = apiData.filter((item) => item.type === "PSP").length;
-    const activeMerchants = apiData.filter(
-      (item) => item.status === "Active" && item.type === "Merchant"
-    ).length;
-    const activePsps = apiData.filter(
-      (item) => item.status === "Active" && item.type === "PSP"
-    ).length;
-    const inactiveMerchants = apiData.filter(
-      (item) => item.status === "Inactive" && item.type === "Merchant"
-    ).length;
-    const inactivePsps = apiData.filter(
-      (item) => item.status === "Inactive" && item.type === "PSP"
-    ).length;
-    const pendingMerchants = apiData.filter(
-      (item) => item.status === "Pending" && item.type === "Merchant"
-    ).length;
-    const pendingPsps = apiData.filter(
-      (item) => item.status === "Pending" && item.type === "PSP"
-    ).length;
-
-    const tempTotal = tempData.length;
-    const tempPendingMerchants = tempData.filter(
-      (item) => item.status === "Pending" && item.type === "Merchant"
-    ).length;
-    const tempPendingPsps = tempData.filter(
-      (item) => item.status === "Pending" && item.type === "PSP"
-    ).length;
-
+    const merchants = apiData.filter(item => item.type === "Merchant").length;
+    const psps = apiData.filter(item => item.type === "PSP").length;
+    const activeMerchants = apiData.filter(item => item.status === "Active" && item.type === "Merchant").length;
+    const activePsps = apiData.filter(item => item.status === "Active" && item.type === "PSP").length;
+    const inactiveMerchants = apiData.filter(item => item.status === "Inactive" && item.type === "Merchant").length;
+    const inactivePsps = apiData.filter(item => item.status === "Inactive" && item.type === "PSP").length;
+    const pendingMerchants = apiData.filter(item => item.status === "Pending" && item.type === "Merchant").length;
+    const pendingPsps = apiData.filter(item => item.status === "Pending" && item.type === "PSP").length;
 
     return (
       <>

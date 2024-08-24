@@ -36,18 +36,18 @@ class Signup extends Component {
     this.setState({ [id]: value });
   };
 
+  handleRootBehaviorChange = (event) => {
+    this.setState({ isRootBehavior: event.target.checked });
+  };
+
   handleSignupSuccessModalToggle = (action) => {
     if (action === "open") {
       this.setState({ isSignupSuccessful: true });
-    } else if (action === "close") {
-      this.setState({ isSignupSuccessful: false }, () => {
-        if (this.state.redirectToLogin) {
-          this.props.history.push('/');
-        }
-      });
+    } else {
+      this.setState({ isSignupSuccessful: false });
     }
   };
-
+  
   handleSubmit = async (e) => {
     e.preventDefault();
     const backendURL = process.env.REACT_APP_BACKEND_URL;
@@ -145,6 +145,7 @@ class Signup extends Component {
           messageType: "",
           isSignupSuccessful: true,
         });
+        this.handleSignupSuccessModalToggle("open");
       } else {
         const errorData = await response.json();
         console.log("Error Data:", errorData);

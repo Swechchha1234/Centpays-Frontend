@@ -36,10 +36,8 @@ import {
   Infoicon,
 } from "../../media/icon/SVGicons";
 
-//Images and Icons
 import profile from "../../media/icon/user-profile.png";
 import settlemntimg from "../../media/image/siteWorking.jpg";
-// import calender from "../../media/icon/calender.png";
 
 class ViewMerchant extends Component {
   constructor(props) {
@@ -716,7 +714,7 @@ class ViewMerchant extends Component {
         errorMessage: "Client approved successfully",
         messageType: "success",
       });
-      this.refreshMerchantData();
+      this.refreshMerchantData()
     } catch (error) {
       console.error("Error approving merchant:", error);
       this.setState({
@@ -2556,111 +2554,6 @@ class ViewMerchant extends Component {
                       </div>
                     </div>
                   )}
-
-                  {/* {this.state.secretsInfo && (
-                    <div className="right-section-middle-body">
-                      <div className="settlements-container">
-                        <div className="integration-Key">
-                          <h5>Integration Key</h5>
-                          <div className="secret-field">
-                            <p className="p2">API Key</p>
-                            <div className="input-container">
-                              <div
-                                className="icon-container copy-icon"
-                                onClick={() => this.handleCopy(apiKey)}
-                              >
-                                <Copy className="grey-icon" />
-                              </div>
-                              <input
-                                className="inputFeild secretkey-input"
-                                type="text"
-                                id="apiKey"
-                                value={
-                                  showApiKey ? apiKey : this.maskString(apiKey)
-                                }
-                                readOnly
-                              />
-                              <div
-                                className="icon-container eye-icon"
-                                onClick={() =>
-                                  this.toggleVisibility("showApiKey")
-                                }
-                              >
-                                {showApiKey ? (
-                                  <EyeOff className="grey-icon" />
-                                ) : (
-                                  <Eye className="grey-icon" />
-                                )}
-                              </div>
-                            </div>
-                          </div>
-
-                          <div className="secret-field">
-                            <p className="p2">Secret Key</p>
-                            <div className="input-container">
-                              <div
-                                className="icon-container copy-icon"
-                                onClick={() => this.handleCopy(secretKey)}
-                              >
-                                <Copy className="grey-icon" />
-                              </div>
-                              <input
-                                className="inputFeild secretkey-input"
-                                type="text"
-                                id="secretKey"
-                                value={
-                                  showSecretKey
-                                    ? secretKey
-                                    : this.maskString(secretKey)
-                                }
-                                readOnly
-                              />
-                              <div
-                                className="icon-container eye-icon"
-                                onClick={() =>
-                                  this.toggleVisibility("showSecretKey")
-                                }
-                              >
-                                {showSecretKey ? (
-                                  <EyeOff className="grey-icon" />
-                                ) : (
-                                  <Eye className="grey-icon" />
-                                )}
-                              </div>
-                            </div>
-                          </div>
-                        </div>
-                        <h5>Account Creation Key</h5>
-                        <div className="secret-field">
-                          <p className="p2">Root User Sign Up Key</p>
-                          <div className="input-container">
-                            <div
-                              className={`icon-container copy-icon ${
-                                copied.signupKey ? "disabled" : ""
-                              }`}
-                              onClick={() =>
-                                !copied.signupKey &&
-                                this.handleCopy("userSignUpKey", signupKey)
-                              }
-                            >
-                              <Copy className="grey-icon" />
-                            </div>
-                            <input
-                              className="inputFeild secretkey-input"
-                              type="text"
-                              id="signupKey"
-                              value={
-                                showUserSignUpKey
-                                  ? signupKey
-                                  : this.maskString(signupKey)
-                              }
-                              readOnly
-                            />
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                  )} */}
                   {this.state.isAddMerchantPanelOpen && (
                     <MerchantForm
                       handleAddMerchant={this.handleAddMerchant}
@@ -2676,45 +2569,6 @@ class ViewMerchant extends Component {
               </div>
             </div>
           </div>
-          {/* <div className="icons-div">
-						<img
-						  src={calender}
-						  alt="calender"
-						  onClick={() => this.handleCalenderClick()}
-						></img>
-					  </div>
-					  {this.state.calendarVisible && (
-						<div className="dates-container">
-						  <div className="dates-div">
-							<label className="p2" htmlFor="fromDate">
-							  From:{" "}
-							</label>
-							<p className="p2">{this.state.fromDate}</p>
-							<input
-							  type="datetime-local"
-							  id="fromDate"
-							  className="inputFeild date-input"
-							  required
-							  onChange={this.handleInputChange}
-							  value={this.state.fromDate}
-							/>
-						  </div>
-						  <div className="dates-div">
-							<label className="p2" htmlFor="toDate">
-							  To:{" "}
-							</label>
-							<p className="p2">{this.state.toDate}</p>
-							<input
-							  type="datetime-local"
-							  id="toDate"
-							  className="inputFeild date-input"
-							  required
-							  onChange={this.handleInputChange}
-							  value={this.state.toDate}
-							/>
-						  </div>
-						</div>
-					  )} */}
         </>
       );
     }
