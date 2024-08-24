@@ -107,7 +107,6 @@ class Dashboard extends Component {
     }
     // console.log("User Role:", userRole);
     // console.log("User Status:", userStatus);
-
     if (userStatus === "Active") {
     }
     this.dataInterval = setInterval(() => {
@@ -454,6 +453,7 @@ class Dashboard extends Component {
           this.fetchDataBasedOnlocalStorage();
         }
       );
+
     }
   };
 
@@ -525,8 +525,8 @@ class Dashboard extends Component {
     const validateCurrency = (currency) => {
       return validCurrencyCodes.includes(currency) ? currency : "USD";
     };
-
     if (userStatus !== "Pending") {
+
       return (
         <>
           {errorMessage && (

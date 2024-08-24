@@ -140,7 +140,6 @@ class Sidebar extends Component {
     const { sidebaropen, userRole, companyName,userStatus} = this.state;
     const isProfileVisible = userRole === 'Merchant' && userStatus === 'Pending';
     const blurClass = isProfileVisible ? 'blur-effect' : '';
-
     const adminMenuItems = [
       {
         path: "/dashboard",

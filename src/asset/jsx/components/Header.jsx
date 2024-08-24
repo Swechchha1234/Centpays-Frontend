@@ -10,6 +10,7 @@ import {
   Close,
   Logout,
   Infoicon,
+
 } from "../../media/icon/SVGicons";
 
 import user from "../../media/icon/user-profile.png";
@@ -49,6 +50,7 @@ class Header extends Component {
       userRole: this.getCookie("role"),
       companyName: this.getCookie("company_name"),
       userStatus: this.getCookie("status"),
+
       token: this.getCookie("token"),
       theme: "light",
       scrolled: false,
@@ -187,7 +189,6 @@ class Header extends Component {
     window.removeEventListener("keydown", this.handleKeyDown);
     document.removeEventListener("mousedown", this.handleClickOutside);
   }
-  
 
   handleClickOutside = (event) => {
     const modalElements = [
@@ -204,6 +205,7 @@ class Header extends Component {
         searchOpen: false,
         showUserProfileModal: false,
         showNotificationModal: false,
+
       });
     }
   };
@@ -233,6 +235,7 @@ class Header extends Component {
         showUserProfileModal: false,
         shortcutModal: false,
         showNotificationModal: false,
+
       });
     } else {
       this.setState({
@@ -467,6 +470,8 @@ class Header extends Component {
             </div>
             </div>
 
+            </div>
+
             <div className="header-right">
             <div className={blurClass}>
               {currentPage === "dashboard" && (
@@ -663,6 +668,7 @@ class Header extends Component {
                           </div>
                         ))}
                     </div>
+
                   </div>
                 ))}
               </div>

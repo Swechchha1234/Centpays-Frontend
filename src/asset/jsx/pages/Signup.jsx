@@ -35,7 +35,6 @@ class Signup extends Component {
     const { id, value } = event.target;
     this.setState({ [id]: value });
   };
-
   handleSignupSuccessModalToggle = (action) => {
     if (action === "open") {
       this.setState({ isSignupSuccessful: true });

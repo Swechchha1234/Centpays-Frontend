@@ -48,7 +48,6 @@ class ListSettlement extends Component {
     const backendURL = process.env.REACT_APP_BACKEND_URL;
     const { token } = this.state;
     this.setState({ loading: true });
-
     try {
       const response = await fetch(`${backendURL}/clients`, {
         method: "GET",
@@ -143,11 +142,76 @@ class ListSettlement extends Component {
     }
   };
 
+  fetchTempData = async () => {
+    const backendURL = process.env.REACT_APP_BACKEND_URL;
+    const { token } = this.state;
+    this.setState({ loading: true });
+
+    try {
+      const response = await fetch(`${backendURL}/tempusers`, {
+        method: "GET",
+        headers: {
+          Authorization: `Bearer ${token}`,
+          "Content-Type": "application/json",
+        },
+      });
+
+      if (response.ok) {
+        const data = await response.json();
+
+        // Ensure that the data received is in the correct format
+        if (Array.isArray(data)) {
+          this.setState({
+            tempData: data,
+            loading: false,
+          });
+          console.log("tempData:", this.state.tempData);
+        } else {
+          console.error("Unexpected data format:", data);
+          this.setState({
+            errorMessage: "Unexpected data format received. Please try again later.",
+            messageType: "fail",
+            loading: false,
+          });
+        }
+      } else {
+        console.error("Error fetching temp data:", response.statusText);
+        this.setState({
+          errorMessage: "Error in fetching temp data. Please try again later.",
+          messageType: "fail",
+          loading: false,
+        });
+      }
+    } catch (error) {
+      console.error("An unexpected error occurred:", error);
+      this.setState({
+        errorMessage: "An unexpected error occurred. Please try again later.",
+        messageType: "fail",
+        loading: false,
+      });
+    }
+  };
+
+  handleTabClick = (status, type = "clients") => {
+    if (type === "temp") {
+      this.setState({
+        selectedDataSource: "tempData",
+        showTempMerchants: status,
+        showMerchants: "all",
+      });
+    } else {
+      this.setState({
+        selectedDataSource: "apiData",
+        showMerchants: status,
+        showTempMerchants: "all", // Reset other filters
+      });
+    }
+  };
 
   handleQueryParams = () => {
     const query = new URLSearchParams(window.location.search);
     const showPending = query.get('showPending');
-
+    
     if (showPending === 'true') {
       this.setState({ showMerchants: 'Pending' });
     }
@@ -189,7 +253,6 @@ class ListSettlement extends Component {
     const pendingPsps = apiData.filter(
       (item) => item.status === "Pending" && item.type === "PSP"
     ).length;
-
     const tempTotal = tempData.length;
     const tempPendingMerchants = tempData.filter(
       (item) => item.status === "Pending" && item.type === "Merchant"
