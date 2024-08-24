@@ -54,6 +54,7 @@ import LiveReport from "./asset/jsx/pages/LiveReport";
 import ViewUsers from "./asset/jsx/pages/ViewUsers";
 import DummyDash from "./asset/jsx/pages/Dummy_Dashboard";
 
+
 function App() {
   return (
     <>
@@ -111,6 +112,7 @@ function App() {
           <Route path="/banksettle" element={<BankSettlement />}></Route>
           <Route path="/livereport" element={<LiveReport/>}></Route>
           <Route path="/viewuser/:company_name"element={<ViewUsers />}></Route>
+
 
         </Routes>
       </BrowserRouter>
