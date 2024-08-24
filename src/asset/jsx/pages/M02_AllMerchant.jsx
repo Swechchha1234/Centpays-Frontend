@@ -28,14 +28,12 @@ class ListSettlement extends Component {
       errorMessage: "",
       messageType: "",
       loading: false,
-
     };
   }
 
   componentDidMount() {
     this.fetchData();
     this.fetchTempData();
-
     this.handleQueryParams();
   }
 
@@ -58,7 +56,7 @@ class ListSettlement extends Component {
           "Content-Type": "application/json",
         },
       });
-  
+
       if (response.ok) {
         let data = await response.json();
         this.setState({
@@ -66,9 +64,54 @@ class ListSettlement extends Component {
           loading: false,
         });
       } else {
-        console.error("Error fetching data:", response.statusText);
         this.setState({
           errorMessage: "Error in fetching data. Please try again later.",
+          messageType: "fail",
+          loading: false,
+        });
+      }
+    } catch (error) {
+      this.setState({
+        errorMessage: "An unexpected error occurred. Please try again later.",
+        messageType: "",
+        loading: false,
+      });
+    }
+  };
+
+  fetchTempData = async () => {
+    const backendURL = process.env.REACT_APP_BACKEND_URL;
+    const { token } = this.state;
+    this.setState({ loading: true });
+
+    try {
+      const response = await fetch(`${backendURL}/tempusers`, {
+        method: "GET",
+        headers: {
+          Authorization: `Bearer ${token}`,
+          "Content-Type": "application/json",
+        },
+      });
+
+      if (response.ok) {
+        const data = await response.json();
+
+        // Ensure that the data received is in the correct format
+        if (Array.isArray(data)) {
+          this.setState({
+            tempData: data,
+            loading: false,
+          });
+        } else {
+          this.setState({
+            errorMessage: "Unexpected data format received. Please try again later.",
+            messageType: "fail",
+            loading: false,
+          });
+        }
+      } else {
+        this.setState({
+          errorMessage: "Error in fetching temp data. Please try again later.",
           messageType: "fail",
           loading: false,
         });
@@ -77,15 +120,26 @@ class ListSettlement extends Component {
       console.error("An unexpected error occurred:", error);
       this.setState({
         errorMessage: "An unexpected error occurred. Please try again later.",
-        messageType: "",
+        messageType: "fail",
         loading: false,
       });
     }
   };
-  
-  
-  handleTabClick = (status) => {
-    this.setState({ showMerchants: status });
+
+  handleTabClick = (status, type = "clients") => {
+    if (type === "temp") {
+      this.setState({
+        selectedDataSource: "tempData",
+        showTempMerchants: status,
+        showMerchants: "all",
+      });
+    } else {
+      this.setState({
+        selectedDataSource: "apiData",
+        showMerchants: status,
+        showTempMerchants: "all", // Reset other filters
+      });
+    }
   };
 
   fetchTempData = async () => {
@@ -154,12 +208,10 @@ class ListSettlement extends Component {
     }
   };
 
-
   handleQueryParams = () => {
     const query = new URLSearchParams(window.location.search);
     const showPending = query.get('showPending');
-
-
+    
     if (showPending === 'true') {
       this.setState({ showMerchants: 'Pending' });
     }
@@ -201,7 +253,6 @@ class ListSettlement extends Component {
     const pendingPsps = apiData.filter(
       (item) => item.status === "Pending" && item.type === "PSP"
     ).length;
-
     const tempTotal = tempData.length;
     const tempPendingMerchants = tempData.filter(
       (item) => item.status === "Pending" && item.type === "Merchant"

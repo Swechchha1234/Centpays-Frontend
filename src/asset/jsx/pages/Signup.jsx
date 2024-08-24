@@ -28,7 +28,6 @@ class Signup extends Component {
       userSocial_id: "",
       userPassword: "",
       userConfirm_password: "",
-
     };
   }
 
@@ -39,6 +38,14 @@ class Signup extends Component {
   handleSignupSuccessModalToggle = (action) => {
     if (action === "open") {
       this.setState({ isSignupSuccessful: true });
+  
+      setTimeout(() => {
+        this.setState({ isSignupSuccessful: false }, () => {
+          if (this.state.redirectToLogin) {
+            this.props.history.push('/');
+          }
+        });
+      }, 5000);
     } else if (action === "close") {
       this.setState({ isSignupSuccessful: false }, () => {
         if (this.state.redirectToLogin) {
@@ -47,7 +54,7 @@ class Signup extends Component {
       });
     }
   };
-
+  
   handleSubmit = async (e) => {
     e.preventDefault();
     const backendURL = process.env.REACT_APP_BACKEND_URL;
@@ -62,6 +69,7 @@ class Signup extends Component {
       userPassword,
       userConfirm_password,
     } = this.state;
+
     if (userPassword !== userConfirm_password) {
       this.setState({
         errorMessage: "Passwords do not match. Please try again.",
@@ -144,6 +152,7 @@ class Signup extends Component {
           messageType: "",
           isSignupSuccessful: true,
         });
+        this.handleSignupSuccessModalToggle("open");
       } else {
         const errorData = await response.json();
         console.log("Error Data:", errorData);
@@ -355,16 +364,6 @@ class Signup extends Component {
                         >
                           privacy policy and terms
                         </Link>
-                      </label>
-                    </div>
-                    <div className="input-group-div">
-                      <label className="p2">
-                        <input
-                          type="checkbox"
-                          checked={this.state.isRootBehavior}
-                          onChange={this.handleRootBehaviorChange}
-                        />
-                        Root User
                       </label>
                     </div>
                   </div>

@@ -23,7 +23,6 @@ class Sidebar extends Component {
       sidebaropen: true,
       userRole: this.getCookie("role"),
       userStatus: this.getCookie("status"),
-
       companyName: this.getCookie("company_name"),
       menuOpen: {
         masterSetting: false,
@@ -141,8 +140,6 @@ class Sidebar extends Component {
     const { sidebaropen, userRole, companyName,userStatus} = this.state;
     const isProfileVisible = userRole === 'Merchant' && userStatus === 'Pending';
     const blurClass = isProfileVisible ? 'blur-effect' : '';
-
-
     const adminMenuItems = [
       {
         path: "/dashboard",
@@ -246,7 +243,6 @@ class Sidebar extends Component {
             text: "Settlement Report",
           },
           { path: "/settlements", text: "Settlement Invoice" },
-
         ],
       },
       {

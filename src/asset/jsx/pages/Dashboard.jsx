@@ -105,10 +105,8 @@ class Dashboard extends Component {
     if (userRole==='firstUser' && userStatus==='Pending') {
       this.setState({ showModal: true });
     }
-
-    console.log("User Role:", userRole);
-    console.log("User Status:", userStatus);
-
+    // console.log("User Role:", userRole);
+    // console.log("User Status:", userStatus);
     if (userStatus === "Active") {
     }
     this.dataInterval = setInterval(() => {
@@ -455,6 +453,7 @@ class Dashboard extends Component {
           this.fetchDataBasedOnlocalStorage();
         }
       );
+
     }
   };
 
@@ -526,8 +525,8 @@ class Dashboard extends Component {
     const validateCurrency = (currency) => {
       return validCurrencyCodes.includes(currency) ? currency : "USD";
     };
+    if (userStatus !== "Pending") {
 
-    if (userRole !== "Pending") {
       return (
         <>
           {errorMessage && (
@@ -2914,7 +2913,6 @@ class Dashboard extends Component {
       }
     }
   }
-
 }
 
 export default Dashboard;

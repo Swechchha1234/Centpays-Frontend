@@ -36,10 +36,8 @@ import {
   Infoicon,
 } from "../../media/icon/SVGicons";
 
-//Images and Icons
 import profile from "../../media/icon/user-profile.png";
 import settlemntimg from "../../media/image/siteWorking.jpg";
-// import calender from "../../media/icon/calender.png";
 
 class ViewMerchant extends Component {
   constructor(props) {
@@ -101,10 +99,12 @@ class ViewMerchant extends Component {
   extractENameFromURL = () => {
     return window.location.pathname.split("/viewmerchant/")[1];
   };
+
   extractIdFromURL = () => {
     const searchParams = new URLSearchParams(window.location.search);
     return searchParams.get('id');
   };
+
   fetchClientId = async (company_name) => {
     const backendURL = process.env.REACT_APP_BACKEND_URL;
     try {
@@ -680,6 +680,7 @@ class ViewMerchant extends Component {
         return currencyCode;
     }
   };
+
   async approveMerchant() {
     const backendURL = process.env.REACT_APP_BACKEND_URL;
     const { token } = this.state;
@@ -697,7 +698,6 @@ class ViewMerchant extends Component {
   
     try {
       const response = await fetch(`${backendURL}/approveclient?id=${id}`, {
-
         method: "PATCH",
         headers: {
           "Content-Type": "application/json",
@@ -708,7 +708,6 @@ class ViewMerchant extends Component {
       if (!response.ok) {
         throw new Error("Network response was not ok.");
       }
-
       this.setState({
         errorMessage: "Client approved successfully",
         messageType: "success",
@@ -723,6 +722,7 @@ class ViewMerchant extends Component {
       });
     }
   }
+
   render() {
     const {
       isSuspended,
@@ -763,11 +763,10 @@ class ViewMerchant extends Component {
           <Header />
           <Sidebar />
           <div
-            className={`main-screen ${
-              this.state.sidebaropen
-                ? "collapsed-main-screen"
-                : "expanded-main-screen"
-            }  `}
+            className={`main-screen ${this.state.sidebaropen
+              ? "collapsed-main-screen"
+              : "expanded-main-screen"
+              }  `}
           >
             <div className="view-merchant-container">
               <div className="row-cards left-section">
@@ -789,7 +788,6 @@ class ViewMerchant extends Component {
                         ? "success-status"
                         : "failed-status"
                       }`}
-
                   >
                     <p>{statusText}</p>
                   </div>
@@ -1187,8 +1185,7 @@ class ViewMerchant extends Component {
                                     className="editable-input"
                                   />
                                 ) : (
-                                  `${
-                                    ratesData.txn_app
+                                  `${ratesData.txn_app
                                   } ${this.getCurrencySymbol(
                                     ratesData.currency
                                   )}`
@@ -1212,8 +1209,7 @@ class ViewMerchant extends Component {
                                     className="editable-input"
                                   />
                                 ) : (
-                                  `${
-                                    ratesData.txn_dec
+                                  `${ratesData.txn_dec
                                   } ${this.getCurrencySymbol(
                                     ratesData.currency
                                   )}`
@@ -1235,8 +1231,7 @@ class ViewMerchant extends Component {
                                     className="editable-input"
                                   />
                                 ) : (
-                                  `${
-                                    ratesData.refund_fee
+                                  `${ratesData.refund_fee
                                   } ${this.getCurrencySymbol(
                                     ratesData.currency
                                   )}`
@@ -1258,8 +1253,7 @@ class ViewMerchant extends Component {
                                     className="editable-input"
                                   />
                                 ) : (
-                                  `${
-                                    ratesData.chargeback_fee
+                                  `${ratesData.chargeback_fee
                                   } ${this.getCurrencySymbol(
                                     ratesData.currency
                                   )}`
@@ -1312,8 +1306,7 @@ class ViewMerchant extends Component {
                                     className="editable-input"
                                   />
                                 ) : (
-                                  `${
-                                    ratesData.setup_fee
+                                  `${ratesData.setup_fee
                                   } ${this.getCurrencySymbol(
                                     ratesData.currency
                                   )}`
@@ -1402,8 +1395,7 @@ class ViewMerchant extends Component {
                                     className="editable-input"
                                   />
                                 ) : (
-                                  `${
-                                    ratesData.annual_maintenance_fee
+                                  `${ratesData.annual_maintenance_fee
                                   } ${this.getCurrencySymbol(
                                     ratesData.currency
                                   )}`
@@ -1734,11 +1726,10 @@ class ViewMerchant extends Component {
           <Header />
           <Sidebar />
           <div
-            className={`main-screen ${
-              this.state.sidebaropen
-                ? "collapsed-main-screen"
-                : "expanded-main-screen"
-            }  `}
+            className={`main-screen ${this.state.sidebaropen
+              ? "collapsed-main-screen"
+              : "expanded-main-screen"
+              }  `}
           >
             <div className="view-merchant-container">
               <div className="row-cards left-section">
@@ -1748,11 +1739,10 @@ class ViewMerchant extends Component {
                   </div>
                   <h5>{this.state.company_name}</h5>
                   <div
-                    className={`status-div ${
-                      statusText === "Active"
-                        ? "success-status"
-                        : "failed-status"
-                    }`}
+                    className={`status-div ${statusText === "Active"
+                      ? "success-status"
+                      : "failed-status"
+                      }`}
                   >
                     <p>{statusText}</p>
                   </div>
@@ -2139,8 +2129,7 @@ class ViewMerchant extends Component {
                                     className="editable-input"
                                   />
                                 ) : (
-                                  `${
-                                    ratesData.txn_app
+                                  `${ratesData.txn_app
                                   } ${this.getCurrencySymbol(
                                     ratesData.currency
                                   )}`
@@ -2164,8 +2153,7 @@ class ViewMerchant extends Component {
                                     className="editable-input"
                                   />
                                 ) : (
-                                  `${
-                                    ratesData.txn_dec
+                                  `${ratesData.txn_dec
                                   } ${this.getCurrencySymbol(
                                     ratesData.currency
                                   )}`
@@ -2187,8 +2175,7 @@ class ViewMerchant extends Component {
                                     className="editable-input"
                                   />
                                 ) : (
-                                  `${
-                                    ratesData.refund_fee
+                                  `${ratesData.refund_fee
                                   } ${this.getCurrencySymbol(
                                     ratesData.currency
                                   )}`
@@ -2263,8 +2250,7 @@ class ViewMerchant extends Component {
                                     className="editable-input"
                                   />
                                 ) : (
-                                  `${
-                                    ratesData.setup_fee
+                                  `${ratesData.setup_fee
                                   } ${this.getCurrencySymbol(
                                     ratesData.currency
                                   )}`
@@ -2353,8 +2339,7 @@ class ViewMerchant extends Component {
                                     className="editable-input"
                                   />
                                 ) : (
-                                  `${
-                                    ratesData.annual_maintenance_fee
+                                  `${ratesData.annual_maintenance_fee
                                   } ${this.getCurrencySymbol(
                                     ratesData.currency
                                   )}`

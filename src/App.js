@@ -114,6 +114,8 @@ function App() {
           <Route path="/viewuser/:company_name"element={<ViewUsers />}></Route>
           <Route path="/text" element={<Text/>}></Route>
 
+          <Route path="/text" element={<Text/>}></Route>
+
         </Routes>
       </BrowserRouter>
     </>
