@@ -179,7 +179,6 @@ class Header extends Component {
   };
 
   componentWillUnmount() {
-     // Close SSE connection on component unmount
      if (this.eventSource) {
       this.eventSource.close();
     }
