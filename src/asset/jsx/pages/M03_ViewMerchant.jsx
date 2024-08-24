@@ -36,7 +36,6 @@ import {
   Infoicon,
 } from "../../media/icon/SVGicons";
 
-//Images and Icons
 import profile from "../../media/icon/user-profile.png";
 import settlemntimg from "../../media/image/siteWorking.jpg";
 
